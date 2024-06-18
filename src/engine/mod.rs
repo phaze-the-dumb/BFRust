@@ -1,3 +1,5 @@
+use std::io;
+
 pub struct Engine{
   bytes: Vec<u8>,
   pub mem: [ u32; 20 ],
@@ -69,6 +71,25 @@ impl Engine{
       46 => {
         // "." - Convert the currently selected memory cell into ascii and print it
         print!("{}", char::from_u32(self.mem[self.pointer]).unwrap());
+      }
+      44 => {
+        // "," - Get 1 byte of input from the user
+        let mut input_text = String::new();
+
+        io::stdin()
+          .read_line(&mut input_text)
+          .expect("failed to read from stdin");
+
+        let input_text = input_text.replace("\r\n", "");
+        let input_bytes = input_text.as_bytes();
+
+        let mut i = 0;
+        for inpt in input_bytes{
+          if i > 0{ break; }
+
+          self.mem[self.pointer] = inpt.clone() as u32;
+          i += 1;
+        }
       }
       91 => {
         // "[" - Pause this loop and process the sub-loop

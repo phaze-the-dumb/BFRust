@@ -16,7 +16,7 @@ impl Compiler{
   }
 
   pub fn run(&mut self){
-    self.file.write(b"fn main(){let mut mem = [ 0; 100 ];let mut p = 0;").unwrap();
+    self.file.write(b"use std::io;fn main(){let mut mem = [ 0; 100 ];let mut p = 0;").unwrap();
 
     loop{
       // Loop through all the lines until you run out.
@@ -61,6 +61,10 @@ impl Compiler{
       46 => {
         // "." - Convert the currently selected memory cell into ascii and print it
         self.file.write(b"print!(\"{}\", char::from_u32(mem[p]).unwrap());").unwrap();
+      }
+      44 => {
+        // "," - Get 1 byte of input from the user
+        self.file.write(b"let mut input_text = String::new();io::stdin().read_line(&mut input_text).expect(\"failed to read from stdin\");let input_text = input_text.replace(\"\r\n\", \"\");let input_bytes = input_text.as_bytes();let mut i = 0;for inpt in input_bytes{if i > 0{ break; }mem[p] = inpt.clone() as u32;i += 1;}").unwrap();
       }
       91 => {
         // "[" - Open loop
