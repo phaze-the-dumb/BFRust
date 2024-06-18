@@ -26,6 +26,7 @@ fn main() {
   if is_compiled{
     // Compile the code
     let mut compiler = Compiler::new(content);
+    compiler.run();
   } else{
     // Run the code interpreter
     let mut engine = Engine::new(content);

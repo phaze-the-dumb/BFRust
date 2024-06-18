@@ -20,7 +20,7 @@ impl Engine{
       // Loop through all the lines until you run out.
       if self.index == self.bytes.len(){ break; }
 
-      self.run_index(self.index);
+      self.run_index();
     }
   }
 
@@ -38,12 +38,12 @@ impl Engine{
         }
       }
 
-      self.run_index(self.index);
+      self.run_index();
     }
   }
 
-  fn run_index( &mut self, index: usize ){
-    let byte = self.bytes[index];
+  fn run_index(&mut self){
+    let byte = self.bytes[self.index];
 
     // Increment the character index
     self.index += 1;
