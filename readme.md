@@ -1,3 +1,5 @@
+**Note: This doesn't follow the official brainfuck specification**
+
 # BrainFuck Rust
 
 This repo contains an interpreter and a compiler for the language brainfuck, written in rust.
